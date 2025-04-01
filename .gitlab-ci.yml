@@ -1,0 +1,11 @@
+image: alpine:latest
+
+pages:
+  script:
+    - mkdir FunKino
+    - cp -r * FunKino
+  artifacts:
+    paths:
+      - FunKino
+  only:
+    - master
