@@ -17,10 +17,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t banan.xuyso.su .
+        run: docker build -t https://pypsik154.github.io/FunKino .
 
       - name: Run Docker container
-        run: docker run -d -p 5173:5173 banan.xuyso.su  # Проброс порта 5173
+        run: docker run -d -p 5173:5173 https://pypsik154.github.io/FunKino  # Проброс порта 5173
 
       - name: Test if site is running
         run: |
