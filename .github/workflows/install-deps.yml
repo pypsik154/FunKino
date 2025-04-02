@@ -3,10 +3,10 @@ name: Deploy and Run Website
 on:
   push:
     branches:
-      - main  # или ваша ветка для деплоя
+      - main  # или ваша ветка
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,20 +16,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Укажите нужную версию Node.js
+          node-version: '18'
 
       - name: Install dependencies
-        run: yarn install  # Или npm install, если используете npm
+        run: yarn install
 
       - name: Build the project
-        run: yarn build  # Или npm run build, если используете npm
+        run: yarn build
 
       - name: Start the website
         run: |
-          nohup yarn start &  # Для запуска в фоновом режиме (или используйте npm start)
-          sleep 10  # Даем немного времени для старта сайта
+          nohup yarn start &  # Запуск в фоновом режиме
+          sleep 30  # Даем серверу 30 секунд на запуск
 
       - name: Test if site is running
         run: |
-          curl --silent --fail http://localhost:5173  # Замените на ваш порт, если нужно
+          curl --silent --fail http://localhost:5173  # Проверка порта 5173
           echo "Site is running!"
