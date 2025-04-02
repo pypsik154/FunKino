@@ -1,18 +1,35 @@
-name: Install Dependencies
+name: Deploy and Run Website
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main  # или ваша ветка для деплоя
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      - name: Install Node.js
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'  # Укажите нужную версию Node.js
 
       - name: Install dependencies
-        run: npm install
+        run: yarn install  # Или npm install, если используете npm
+
+      - name: Build the project
+        run: yarn build  # Или npm run build, если используете npm
+
+      - name: Start the website
+        run: |
+          nohup yarn start &  # Для запуска в фоновом режиме (или используйте npm start)
+          sleep 10  # Даем немного времени для старта сайта
+
+      - name: Test if site is running
+        run: |
+          curl --silent --fail http://localhost:5173  # Замените на ваш порт, если нужно
+          echo "Site is running!"
