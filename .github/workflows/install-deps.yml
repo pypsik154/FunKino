@@ -1,4 +1,4 @@
-name: Run website in Docker
+name: Build and Push Docker Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,12 +17,12 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t https://pypsik154.github.io/FunKino .
+        run: docker build -t funkino:latest .  # Замените на ваш правильный тег
 
       - name: Run Docker container
-        run: docker run -d -p 5173:5173 https://pypsik154.github.io/FunKino  # Проброс порта 5173
+        run: docker run -d -p 5173:5173 funkino:latest
 
       - name: Test if site is running
         run: |
           curl --silent --fail http://localhost:5173  # Проверка порта
-          echo "Site is running"
+          echo "Site is running!"
