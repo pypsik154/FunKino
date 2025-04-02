@@ -1,28 +1,28 @@
-name: Node.js CI
+name: Install Yarn
 
 on:
   push:
     branches:
-      - main  # или ваша ветка
-  pull_request:
-    branches:
-      - main  # или ваша ветка
+      - main  # Запускать на пуш в main (или вашу ветку)
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # или другой образ ОС
+  install:
+    runs-on: ubuntu-latest  # Использовать Ubuntu на сервере
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Получаем код из репозитория
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Обновите на нужную версию Node.js (например, 18 или выше)
+          node-version: '16'  # Укажите нужную версию Node.js
+
+      - name: Install Yarn
+        run: npm install --global yarn  # Устанавливаем Yarn
 
       - name: Install dependencies
-        run: yarn install  # Или npm install, если используете npm
+        run: yarn install  # Устанавливаем зависимости проекта
 
       - name: Run tests
-        run: yarn test  # Или другая команда для тестов
+        run: yarn test  # Здесь могут быть ваши тесты или другие команды
