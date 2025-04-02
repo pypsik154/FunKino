@@ -25,4 +25,4 @@ jobs:
       - name: Test if site is running
         run: |
           curl --silent --fail http://localhost:5173  # Проверка порта
-          echo "Site is running!"
+          echo "Site is running"
