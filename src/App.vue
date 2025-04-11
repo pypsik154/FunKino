@@ -21,19 +21,18 @@ import { ref, onMounted } from 'vue';
 import BackgroundSpace from '@/components/BackgroundSpace.vue';
 import MenuNavigation from '@/components/MenuNavigation.vue';
 
-const showVideo = ref(false); // Видео будет показано только на нужной странице
+const showVideo = ref(false);
 const videoPlayer = ref(null);
 
-// Функция для проверки URL
+// Разрешённые страницы, на которых показывается видео
 function checkURL() {
   const currentURL = window.location.href;
   const allowedURLs = [
     "https://fun-kino.vercel.app/movie/421897",
     "https://fun-kino.vercel.app/movie/5632585",
     "https://fun-kino.vercel.app/movie/5363155",
-	"https://fun-kino.vercel.app/movie/1395793",
-	"https://fun-kino.vercel.app/movie/821089",
-	"https://v.nogravity4.click/media/7/7/v7748206910405_231.mp4?441d834458206d8eede27e162893b7a3&7321581d-d383-4d88-90f2-56fb948f6c7c"
+    "https://fun-kino.vercel.app/movie/1395793",
+    "https://fun-kino.vercel.app/movie/821089"
   ];
 
   if (allowedURLs.includes(currentURL)) {
@@ -41,17 +40,39 @@ function checkURL() {
   }
 }
 
-onMounted(() => {
-  checkURL(); // Проверяем URL при монтировании компонента
+// 🚫 Функция для удаления рекламы по нескольким доменам
+function removeAds() {
+  const blockedDomains = [
+    "cdn-t.b5c1d2e8c9982e3b965a27ac72ru7284cc.com",
+    "ads.example.com",
+    "another-ad-source.net"
+  ];
 
-  if (showVideo.value) {
-    videoPlayer.value.play(); // Запускаем видео, если это нужная страница
+  document.querySelectorAll('video, iframe, script, source').forEach(el => {
+    const srcAttr = el.src || el.getAttribute('src');
+    if (srcAttr && blockedDomains.some(domain => srcAttr.includes(domain))) {
+      el.remove();
+      console.log("🚫 Удалена реклама с:", srcAttr);
+    }
+  });
+}
+
+onMounted(() => {
+  checkURL();
+
+  if (showVideo.value && videoPlayer.value) {
+    videoPlayer.value.play();
   }
+
+  // Удаление рекламы сразу
+  removeAds();
+
+  // Повторно удалять рекламу каждые 2 секунды (на случай динамической загрузки)
+  setInterval(removeAds, 2000);
 });
 
-// Функция для обработки окончания видео
+// После окончания видео — переход на главную
 function onVideoEnd() {
-  // После окончания видео перенаправляем на нужную страницу
   window.location.href = "https://fun-kino.vercel.app";
 }
 </script>
@@ -77,7 +98,7 @@ function onVideoEnd() {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
