@@ -27,7 +27,7 @@ const videoPlayer = ref(null);
 // Функция для проверки URL
 function checkURL() {
   const currentURL = window.location.href;
-  if (currentURL === "https://banan.xuyso.su/movie/421897") {
+  if (currentURL === "https://fun-kino.vercel.app/movie/421897") {
     showVideo.value = true;
   }
 }
@@ -43,7 +43,7 @@ onMounted(() => {
 // Функция для обработки окончания видео
 function onVideoEnd() {
   // После окончания видео перенаправляем на нужную страницу
-  window.location.href = "https://banan.xuyso.su";
+  window.location.href = "https://fun-kino.vercel.app";
 }
 </script>
 
