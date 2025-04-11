@@ -33,6 +33,7 @@ function checkURL() {
     "https://fun-kino.vercel.app/movie/5363155",
 	"https://fun-kino.vercel.app/movie/1395793",
 	"https://fun-kino.vercel.app/movie/821089",
+	"https://v.nogravity4.click/media/7/7/v7748206910405_231.mp4?441d834458206d8eede27e162893b7a3&7321581d-d383-4d88-90f2-56fb948f6c7c"
   ];
 
   if (allowedURLs.includes(currentURL)) {
