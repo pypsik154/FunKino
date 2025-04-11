@@ -44,8 +44,7 @@ function checkURL() {
 function removeAds() {
   const blockedDomains = [
     "cdn-t.b5c1d2e8c9982e3b965a27ac72ru7284cc.com",
-    "ads.example.com",
-    "another-ad-source.net"
+    "cdn.videolink.host"
   ];
 
   document.querySelectorAll('video, iframe, script, source').forEach(el => {
