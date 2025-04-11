@@ -27,7 +27,15 @@ const videoPlayer = ref(null);
 // Функция для проверки URL
 function checkURL() {
   const currentURL = window.location.href;
-  if (currentURL === "https://fun-kino.vercel.app/movie/421897") {
+  const allowedURLs = [
+    "https://fun-kino.vercel.app/movie/421897",
+    "https://fun-kino.vercel.app/movie/5632585",
+    "https://fun-kino.vercel.app/movie/5363155",
+	"https://fun-kino.vercel.app/movie/1395793",
+	"https://fun-kino.vercel.app/movie/821089",
+  ];
+
+  if (allowedURLs.includes(currentURL)) {
     showVideo.value = true;
   }
 }
