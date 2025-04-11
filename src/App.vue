@@ -44,7 +44,8 @@ function checkURL() {
 function removeAds() {
   const blockedDomains = [
     "cdn-t.b5c1d2e8c9982e3b965a27ac72ru7284cc.com",
-    "cdn.videolink.host"
+    "cdn.videolink.host",
+    "kinescope.io"
   ];
 
   document.querySelectorAll('video, iframe, script, source').forEach(el => {
